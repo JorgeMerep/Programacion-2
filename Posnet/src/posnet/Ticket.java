@@ -2,9 +2,9 @@ package posnet;
 
 public class Ticket {
 
-    private String nombreCliente;
-    private double montoTotal;
-    private double montoDeCuota;
+    private final String nombreCliente;
+    private final double montoTotal;
+    private final double montoDeCuota;
 
     public Ticket(String nombreCliente, double montoTotal, double montoDeCuota) {
         this.nombreCliente = nombreCliente;

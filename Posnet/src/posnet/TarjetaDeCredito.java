@@ -2,11 +2,11 @@ package posnet;
 
 public class TarjetaDeCredito {
 
-    private EntidadFinanciera entidadFinanciera;
-    private String banco;
-    private String numero;
+    private final EntidadFinanciera entidadFinanciera;
+    private final String banco;
+    private final String numero;
     private double saldoDisponible;
-    private Cliente titular;
+    private final Cliente titular;
 
     public TarjetaDeCredito(EntidadFinanciera entidadFinanciera, String banco, String numero, double saldoDisponible, Cliente titular) {
         this.entidadFinanciera = entidadFinanciera;
@@ -27,4 +27,9 @@ public class TarjetaDeCredito {
     public void restarSaldo(double monto) {
         saldoDisponible -= monto;
     }
+
+    public EntidadFinanciera getEntidadFinanciera() {
+        return entidadFinanciera;
+    }
+
 }

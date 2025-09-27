@@ -2,11 +2,11 @@ package posnet;
 
 public class Cliente {
 
-    private String dni;
-    private String nombre;
-    private String apellido;
-    private String telefono;
-    private String mail;
+    private final String dni;
+    private final String nombre;
+    private final String apellido;
+    private final String telefono;
+    private final String mail;
 
     public Cliente(String dni, String nombre, String apellido, String telefono, String mail) {
         this.dni = dni;
