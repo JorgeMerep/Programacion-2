@@ -2,7 +2,7 @@ package clase_11_integrador_listas;
 
 import java.util.ArrayList;
 
-public class Compumundo321 {
+public class Compumundo {
 
     public static void main(String[] args) {
         
