@@ -1,56 +1,43 @@
 package clase_11_integrador_listas;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Objects;
 
 public class Sucursal {
+
     private final String nombre;
     private String localidad;
     private final ArrayList<DispositivoElectronico> dispositivos;
-    
-    /*
-    private Sucursal(){ //puede existir un constructor privado.
-        dispositivos = new ArrayList<>();
-    }
-    
-    public Sucursal(String nombre){
-        this(); //llama al constructor no parametrizado.
-        this.nombre = nombre;
-    }
-    
-    public Sucursal(String nombre, String localidad){
-        this(nombre); //llama al constructor que recibe un parámetro.
-        this.localidad = localidad;
-    }*/
 
-    public Sucursal(String nombre){ 
+    public Sucursal(String nombre) {
         this.nombre = nombre;
         dispositivos = new ArrayList<>();
     }
-    
-    public void agregarDispositivo(DispositivoElectronico dispositivo){
+
+    public void agregarDispositivo(DispositivoElectronico dispositivo) {
         if (dispositivo == null) {
             throw new IllegalArgumentException("Dispositivo nulo");
         }
-        dispositivos.add(dispositivo);        
+        dispositivos.add(dispositivo);
     }
-    
-    public ArrayList<DispositivoElectronico> getDispositivos(){
+
+    public ArrayList<DispositivoElectronico> getDispositivos() {
         return new ArrayList<>(dispositivos); //devuelve una copia de la lista de dispositivos
     }
-    
-    public String getNombre(){
+
+    public String getNombre() {
         return nombre;
     }
-    
-    public boolean tieneNombre(String nombre){
+
+    public boolean tieneNombre(String nombre) {
         return this.nombre.equals(nombre);
     }
-    
-    public String getTablaDispositivos(){
+
+    public String getTablaDispositivos() {
         return DispositivoElectronico.toStringTable(dispositivos);
     }
-    
+
     public ArrayList<DispositivoElectronico> obtenerDispositivosPorTipo(TipoDispositivo tipo) {
         ArrayList<DispositivoElectronico> filtrados = new ArrayList<>();
         for (DispositivoElectronico d : dispositivos) {
@@ -60,9 +47,9 @@ public class Sucursal {
         }
         return filtrados;
     }
-    
+
     @Override
-    public boolean equals(Object o){
+    public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
@@ -71,12 +58,43 @@ public class Sucursal {
         }
         return nombre.equals(s.nombre);
     }
-    
+
     @Override
     public int hashCode() {
         return Objects.hash(nombre);
     }
-    
-    
-    
+
+    public DispositivoElectronico borrarDispositivo(String idDispositivo) {
+        DispositivoElectronico d = null;
+        Iterator<DispositivoElectronico> iterDispositivos = dispositivos.iterator();
+        
+        while(iterDispositivos.hasNext() && d == null) {
+            DispositivoElectronico sigDispositivo = iterDispositivos.next();
+
+            if (sigDispositivo.getId().equals(idDispositivo)) {
+                d = sigDispositivo;
+                iterDispositivos.remove();
+            }
+        }
+        return d;
+    }
+
+    public double[] porcDispositivosPorTipo() {
+        TipoDispositivo[] tipos = TipoDispositivo.values();
+        int contadores[] = new int[tipos.length];
+        double porcentajes[] = new double[tipos.length];
+
+        for (DispositivoElectronico disp : dispositivos) {  
+            contadores[disp.getTipo().ordinal()]++;
+        }
+        
+        for (int i = 0; i < contadores.length; i++){
+            porcentajes[i] = calcularPorcentaje(contadores[i]);
+        }
+        return porcentajes;
+    }
+
+    private double calcularPorcentaje(int cantidad) {
+        return cantidad * 100 / dispositivos.size();
+    }
 }

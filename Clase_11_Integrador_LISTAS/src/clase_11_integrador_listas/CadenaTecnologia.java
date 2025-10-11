@@ -32,11 +32,11 @@ public class CadenaTecnologia {
 
     public boolean agregarDispositivo(String nombreSucursal, DispositivoElectronico dispositivo) {
         Sucursal suc = null;
-        if((suc = buscarSucursal(nombreSucursal)) != null){
+        if ((suc = buscarSucursal(nombreSucursal)) != null) {
             suc.agregarDispositivo(dispositivo);
             return true;
         }
-        return false;        
+        return false;
     }
 
     private Sucursal buscarSucursal(String nombreSucursal) {
@@ -45,19 +45,19 @@ public class CadenaTecnologia {
         while (i < sucursales.size() && toReturn == null) {
             Sucursal actual = sucursales.get(i++);
             if (actual.tieneNombre(nombreSucursal)) {
-                toReturn = actual;  
+                toReturn = actual;
             }
         }
         return toReturn;
     }
-   
-    public void listarDispoSucTabla(String nombreSucursal){
+
+    public void listarDispoSucTabla(String nombreSucursal) {
         Sucursal suc = null;
-        if((suc = buscarSucursal(nombreSucursal)) != null){
+        if ((suc = buscarSucursal(nombreSucursal)) != null) {
             System.out.println(suc.getTablaDispositivos());
         }
     }
-    
+
     public ArrayList<DispositivoElectronico> dispositivosPorTipo(TipoDispositivo tipo) {
         ArrayList<DispositivoElectronico> resultado = new ArrayList<>();
         for (Sucursal sucursal : sucursales) {
@@ -65,5 +65,22 @@ public class CadenaTecnologia {
         }
         return resultado;
     }
+
+    public DispositivoElectronico borrarDispositivo(String nombreSucursal, String idDispositivo) {
+        Sucursal suc = buscarSucursal(nombreSucursal);
         
+        if (suc == null) {
+            throw new IllegalArgumentException("Sucursal inexistente");
+        }
+        return suc.borrarDispositivo(idDispositivo);
     }
+    
+    public double[] porcDispositivosPorTipo (String nombreSucursal){
+        Sucursal suc = buscarSucursal(nombreSucursal);
+        
+        if (suc == null) {
+            throw new IllegalArgumentException("Sucursal inexistente");
+        }
+        return suc.porcDispositivosPorTipo();
+    }
+}
